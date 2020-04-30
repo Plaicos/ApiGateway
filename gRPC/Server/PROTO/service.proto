@@ -1,0 +1,49 @@
+syntax = "proto3";
+package ApiGatewayPackage;
+
+service ApiGateway {
+    rpc Test(file) returns (file);
+} 
+
+message buffer {
+    string type = 1;
+    repeated string data = 2;
+}
+
+message file {
+    bytes chunk = 1 ;
+}
+
+message getPublicStatic {
+    string path = 1 ;
+}
+
+message getTemplate {
+    selector selector = 1;
+    string params = 2;
+    credential credential = 3;
+}
+
+message selector {
+    string lib = 1;
+    string subject = 2;
+    string name = 3;
+}
+
+message template {
+    string Html = 1;
+}
+
+message responseStatus {
+    string status = 1;
+}
+
+message credential {
+    string user = 1;
+    int32 accessLevel = 2;
+    priviligies priviligies = 3;
+}
+
+message priviligies {
+    string admin = 1;
+}
