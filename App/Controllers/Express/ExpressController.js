@@ -1,4 +1,5 @@
 var App = require("../../../Application");
+var UseCaseOperator = require("../../UseCases/Operator")
 
 module.exports = class ExpressController {
     static async GetView(req, resp, selector) {
@@ -29,11 +30,37 @@ module.exports = class ExpressController {
         try {
             let session = App.Adapters.Express.Request.ToSession(req);
             resp.cookie("Plaicos-Session", session, { encode: String });
-            console.log(session);
+            //console.log(session);
             return;
         }
         catch (erro) {
             this.HandleError(resp, erro);
+        }
+    }
+
+    static async SignIn(req, resp) {
+        try {
+            let request = App.Adapters.Express.Request.ToGrpcSignInRequest(req);
+            let response = await App.Dependencies.SCI.User.SignIn(request);
+            resp.status(200);
+            resp.json(response);
+            resp.cookie()
+            resp.end();
+        }
+        catch (erro) {
+            this.HandleError(resp, erro);
+        }
+    }
+
+    static async AuthenticateToken(req, resp) {
+        try {
+            let request = App.Adapters.Express.Request.ToTokenAuthenticationRequest(req);
+            let credential = await UseCaseOperator.AuthenticateToken(request);
+            req.credential = credential;
+            return;
+        }
+        catch (erro) {
+            throw erro;
         }
     }
 

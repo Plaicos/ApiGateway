@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "@grpc/proto-loader": "^0.5.4",
+    "cookie-parser": "^1.4.5",
     "cookie-session": "^1.4.0",
     "dependency-manager.js": "^0.1.0",
     "express": "^4.17.1",

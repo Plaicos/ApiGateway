@@ -26,4 +26,26 @@ module.exports = class ExpressRequestAdapter {
             throw erro;
         }
     }
+
+    static ToGrpcSignInRequest(req) {
+        try {
+            let signInRequest = new Object();
+            signInRequest.login = req.body.user;
+            signInRequest.password = req.body.password;
+            return signInRequest;
+        }
+        catch (erro) {
+            throw erro;
+        }
+    }
+
+    static ToTokenAuthenticationRequest(req) {
+        try {
+            let token = req.cookies["Authentication-Token"];
+            return new App.Models.TokenAuthentication(token);
+        }
+        catch (erro) {
+            throw erro;
+        }
+    }
 }

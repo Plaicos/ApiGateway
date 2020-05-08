@@ -1,3 +1,5 @@
-module.exports = class MainController {
+var App = require("../../Application");
 
+module.exports = class MainController {
+    
 }

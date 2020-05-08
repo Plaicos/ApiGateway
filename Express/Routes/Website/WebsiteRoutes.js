@@ -1,5 +1,8 @@
 var router = require("express").Router();
+var dashboardRouter = require("./Dashboard/DashboardRoutes")
 var Controller = require("../../../App/Controllers/Express/ExpressController");
+
+router.use("/dashboard", dashboardRouter);
 
 router.get("/sign-up", async (req, resp) => {
     req.query.selector = {
@@ -27,7 +30,6 @@ router.get("/", async (req, resp) => {
         subject: "Pages",
         name: "Home"
     }
-    console.log("request home ")
     Controller.SetSession(req, resp);
     await Controller.GetHtml(req, resp);
 });

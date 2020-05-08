@@ -1,7 +1,9 @@
 var express = require("express")
 var router = express.Router();
+var cookieParser = require('cookie-parser');
 
 router.use(express.json());
+router.use(cookieParser());
 
 router.use((req, resp, next) => {
     if (req.query.selector) {
