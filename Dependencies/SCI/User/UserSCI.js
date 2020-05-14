@@ -9,7 +9,7 @@ module.exports = class ViewSCI {
                     if (erro) {
                         return reject(erro);
                     }
-                    resolve(token);
+                    return resolve(token);
                 });
             }
             catch (erro) {
@@ -18,14 +18,14 @@ module.exports = class ViewSCI {
         })
     }
 
-    static async GetUserData(user) {
+    static async GetUserData(user, credential) {
         return new Promise((resolve, reject) => {
             try {
-                SCI.Client.User.log_in(signInRequest, (erro, token) => {
+                SCI.Client.User.get_user({ login: user, credential }, (erro, userData) => {
                     if (erro) {
                         return reject(erro);
                     }
-                    resolve(token);
+                    return resolve(userData);
                 });
             }
             catch (erro) {

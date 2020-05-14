@@ -1,7 +1,7 @@
 var App = require("../../../Application");
-var UseCaseOperator = require("../../UseCases/Operator")
+var UseCaseOperator = require("../../UseCases/Operator");
 
-module.exports = class ExpressController {
+module.exports = class MainController {
     static async GetView(req, resp, selector) {
         try {
             let request = App.Adapters.Express.Request.ToGrpcTemplateRequest(req);
@@ -16,7 +16,6 @@ module.exports = class ExpressController {
 
     static async GetHtml(req, resp) {
         try {
-            console.log("got heres")
             let request = App.Adapters.Express.Request.ToGrpcTemplateRequest(req);
             let response = await App.Dependencies.SCI.View.GetTemplate(request);
             resp.status(200);
@@ -61,7 +60,7 @@ module.exports = class ExpressController {
             return;
         }
         catch (erro) {
-            throw erro;
+            this.HandleError(resp, erro);
         }
     }
 

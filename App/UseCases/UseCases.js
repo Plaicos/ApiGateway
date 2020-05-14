@@ -1,3 +1,4 @@
 module.exports = {
-    AuthenticateToken: require("./AuthenticateToken")
+    AuthenticateToken: require("./AuthenticateToken"),
+    GetUserType: require("./GetUserType")
 }

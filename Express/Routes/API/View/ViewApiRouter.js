@@ -1,8 +1,8 @@
 var router = require("express").Router();
-var Controller = require("../../../../App/Controllers/Express/ExpressController")
+var MainController = require("../../../../App/Controllers/Express/MainController")
 
 router.get("/get-template", async (req, resp) => {
-    await Controller.GetView(req, resp);
+    await MainController.GetView(req, resp);
 })
 
 module.exports = router;

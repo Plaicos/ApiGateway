@@ -2,8 +2,7 @@ var App = require("../../Application");
 
 module.exports = async (request) => {
     try {
-        console.log(request);
-        //let credential = App.Dependencies.SCI.Auth.Authenticate;
+        return await App.Dependencies.SCI.Auth.AuthenticateToken(request.Token);
     }
     catch (erro) {
         throw erro;

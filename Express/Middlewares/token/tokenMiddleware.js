@@ -1,13 +1,13 @@
 var express = require("express")
 var router = express.Router();
-var Controller = require("../../../App/Controllers/Express/ExpressController")
+var MainController = require("../../../App/Controllers/Express/MainController")
 
 //authentication token
 router.use(async (req, resp, next) => {
     let hasToken = req.cookies["Authentication-Token"];
 
     if (hasToken) {
-        await Controller.AuthenticateToken(req, resp);
+        await MainController.AuthenticateToken(req, resp);
     }
     next();
 });

@@ -1,6 +1,6 @@
 var router = require("express").Router();
 var dashboardRouter = require("./Dashboard/DashboardRoutes")
-var Controller = require("../../../App/Controllers/Express/ExpressController");
+var Controller = require("../../../App/Controllers/Express/MainController");
 
 router.use("/dashboard", dashboardRouter);
 

@@ -1,14 +1,15 @@
 var router = require("express").Router();
-var Controller = require("../../../../App/Controllers/Express/ExpressController");
+var MainController = require("../../../../App/Controllers/Express/MainController");
+var Controller = require("../../../../App/Controllers/Express/DashboardController");
 
 router.get("/", async (req, resp) => {
-    req.query.selector = {
-        lib: "Dashboard",
-        subject: "Pages",
-        name: "SupplierDashboard"
+    let isAuthenticated = Controller.CheckIfRequestIsAuthenticated(req, resp);
+    if (!isAuthenticated) {
+        return Controller.AskForAuthentication(req, resp);
     }
-    Controller.SetSession(req, resp);
-    await Controller.GetHtml(req, resp);
+    req = await Controller.GetCorrespondingDashboardSelector(req, resp);
+    MainController.SetSession(req, resp);
+    return await MainController.GetHtml(req, resp);
 })
 
 module.exports = router;

@@ -1,9 +1,9 @@
 var App = require("../../Application");
 
-module.exports = async (user) => {
+module.exports = async (user, credential) => {
     try {
-        let userData = await App.Dependencies.SCI.User.GetUserData(user);
-        console.log(userData);
+        let userData = await App.Dependencies.SCI.User.GetUserData(user, credential);
+        return userData.type;
     }
     catch (erro) {
         throw erro;
