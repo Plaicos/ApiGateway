@@ -1,5 +1,6 @@
 var express = require("express")
 var app = express();
+var path = require("path");
 
 module.exports = class Express {
 
@@ -9,13 +10,13 @@ module.exports = class Express {
 
     static Config = require("./config")
 
-    static Server;
+    static Server;  
 
-    static StaticDir = __dirname + "\\Static";
+    static StaticDir = path.resolve(__dirname + "/Static");
 
     static StaticClientsDir = require("../Clients/path");
 
-    static StaticAssetsDir = this.StaticDir + "\\assets";
+    static StaticAssetsDir = path.resolve(this.StaticDir + "/assets");
 
     static Initialize() {
         try {

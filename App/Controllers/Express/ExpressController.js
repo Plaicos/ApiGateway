@@ -16,6 +16,7 @@ module.exports = class ExpressController {
 
     static async GetHtml(req, resp) {
         try {
+            console.log("got heres")
             let request = App.Adapters.Express.Request.ToGrpcTemplateRequest(req);
             let response = await App.Dependencies.SCI.View.GetTemplate(request);
             resp.status(200);

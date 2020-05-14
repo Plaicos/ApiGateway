@@ -9,9 +9,11 @@ module.exports = class Application {
     static Dependencies;
     static UseCases;
     static Adapters;
+    static Environment = require("./App/Env/Env");
 
     static async InitializeAsync() {
         try {
+            this.Environment.InitializeVariables();
             await this.InitializeDependenciesAsync();
             this.Adapters = require("./App/Adapters/adapters");
             this.UseCases = require("./App/UseCases/UseCases");
