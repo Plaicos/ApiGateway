@@ -17,4 +17,20 @@ module.exports = class ViewSCI {
             }
         })
     }
+
+    static async GetUserData(user) {
+        return new Promise((resolve, reject) => {
+            try {
+                SCI.Client.User.log_in(signInRequest, (erro, token) => {
+                    if (erro) {
+                        return reject(erro);
+                    }
+                    resolve(token);
+                });
+            }
+            catch (erro) {
+                reject(erro);
+            }
+        })
+    }
 }

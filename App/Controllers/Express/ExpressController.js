@@ -44,8 +44,8 @@ module.exports = class ExpressController {
             let request = App.Adapters.Express.Request.ToGrpcSignInRequest(req);
             let response = await App.Dependencies.SCI.User.SignIn(request);
             resp.status(200);
+            resp.cookie();
             resp.json(response);
-            resp.cookie()
             resp.end();
         }
         catch (erro) {
@@ -67,17 +67,17 @@ module.exports = class ExpressController {
 
     static HandleError(resp, error) {
         try {
-            resp.status(500);
-            resp.json(error);
-            resp.end();
             console.log(error);
+            resp.status(500);
+            //resp.json(error);
+            resp.end();
             return;
         }
         catch (erro) {
             resp.status(500);
-            resp.json(erro);
+            //resp.json(erro);
             resp.end();
-            throw erro;
+            console.log(erro);
         }
     }
 }
