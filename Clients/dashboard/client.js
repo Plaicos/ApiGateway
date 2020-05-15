@@ -1,24 +1,38 @@
-class Client {
-    static BaseSelector = {
+var Client = class {
+    BaseSelector = {
         lib: "Dashboard",
         subject: "Components"
     }
 
-    static ComponentsToLoad;
+    ComponentsToLoad;
 
-    static DefaultComponentsToLoad = [
-
+    DefaultComponentsToLoad = [
+        {
+            name: "default"
+        },
+        {
+            name: "profile"
+        },
+        {
+            name: "graphs"
+        },
+        {
+            name: "vheader"
+        },
+        {
+            name: "messanger"
+        }
     ];
 
-    static Components = new Object();
+    Components = new Object();
 
-    static BaseUri = "http://localhost:3000";
+    BaseUri = "http://localhost:3000";
 
-    static App;
+    App;
 
-    static Session;
+    Session;
 
-    static async InitializeAsync() {
+    async InitializeAsync() {
         try {
             this.LoadSession();
             await this.LoadComponents();
@@ -31,7 +45,7 @@ class Client {
         }
     }
 
-    static CreateVueApp() {
+    CreateVueApp() {
         try {
             this.App = new Vue({
                 el: "#app",
@@ -45,7 +59,7 @@ class Client {
         }
     }
 
-    static async LoadComponents() {
+    async LoadComponents() {
         try {
             this.JoinComponentsList();
             for (let component of this.ComponentsToLoad) {
@@ -57,19 +71,19 @@ class Client {
         }
     }
 
-    static async LoadSingleComponent(component) {
+    async LoadSingleComponent(component) {
         try {
             let selector = this.BaseSelector;
             selector.name = component.name;
             component.html = await this.LoadComponentHtml(selector);
-            this.Components[component.name] = (component);
+            this.Components[component.name] = component;
         }
         catch (erro) {
             throw erro;
         }
     }
 
-    static JoinComponentsList() {
+    JoinComponentsList() {
         try {
             if (!window.customComponentsToLoad) {
                 window.customComponentsToLoad = [];
@@ -81,7 +95,7 @@ class Client {
         }
     }
 
-    static async LoadComponentHtml(selector) {
+    async LoadComponentHtml(selector) {
         try {
             let param = JSON.stringify(selector);
             let response = await axios.get(this.BaseUri + "/api/view/get-template?selector=" + param);
@@ -92,28 +106,46 @@ class Client {
         }
     }
 
-    static BuildComponents() {
+    BuildComponents() {
         try {
+            console.log("started building")
             if (window.buildCustomComponents) {
                 window.buildCustomComponents();
             }
             this.BuildDefaultComponents();
+            console.log("finished building")
         }
         catch (erro) {
             throw erro;
         }
     }
 
-    static BuildDefaultComponents() {
+    BuildDefaultComponents() {
         try {
-            
+            Vue.component(Client.Components.vheader.name, {
+                template: Client.Components.vheader.html,
+                props: ["session"]
+            });
+            Vue.component(Client.Components.profile.name, {
+                template: Client.Components.profile.html,
+                props: ["session"]
+            });
+            Vue.component(Client.Components.default.name, {
+                template: Client.Components.default.html
+            });
+            Vue.component(Client.Components.graphs.name, {
+                template: Client.Components.graphs.html
+            });
+            Vue.component(Client.Components.messanger.name, {
+                template: Client.Components.messanger.html
+            })
         }
         catch (erro) {
             throw erro;
         }
     }
 
-    static LoadSession() {
+    LoadSession() {
         try {
             let states = window.initialStates;
             if (!states) {
@@ -128,6 +160,15 @@ class Client {
     }
 }
 
+var DashboardController = class {
+    SwitchToDefaultTab(){
+        Client.Session.currentTab = "default";
+    }
+    SwitchTab(tab) {
+        Client.Session.currentTab = tab;
+    }
+}
+
 // just to show what a component should look like. This class has no use.
 class Component {
     name;
@@ -136,5 +177,8 @@ class Component {
 }
 
 window.onload = async () => {
+    Client = new Client();
     await Client.InitializeAsync();
+    DashboardController = new DashboardController();
+    DashboardController.SwitchToDefaultTab();
 }

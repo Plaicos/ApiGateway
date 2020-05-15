@@ -23,7 +23,7 @@ module.exports = class DashboardController {
             if (userType === "supplier") {
                 req.query.selector.name = "SupplierDashboard";
             }
-            return req;
+            return;
         }
         catch (erro) {
             this.HandleError(resp, erro);
@@ -74,6 +74,21 @@ module.exports = class DashboardController {
                 subject: "Pages"
             }
             return req;
+        }
+        catch (erro) {
+            this.HandleError(resp, erro);
+        }
+    }
+
+    static async SetDashboardSession(req, resp) {
+        try {
+            let session = new Object();
+            session.currentPage = req.query.selector.name;
+            session.userData = await App.Dependencies.SCI.User.GetUserData(req.credential.user, req.credential);
+            session = JSON.stringify(session);
+            resp.cookie("Plaicos-Session", session, { encode: String });
+            //console.log(session);
+            return;
         }
         catch (erro) {
             this.HandleError(resp, erro);
