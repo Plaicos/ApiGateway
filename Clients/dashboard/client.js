@@ -26,7 +26,7 @@ var Client = class {
 
     Components = new Object();
 
-    BaseUri = "http://localhost:3000";
+    BaseUri = "plaicos.com.br";
 
     App;
 
