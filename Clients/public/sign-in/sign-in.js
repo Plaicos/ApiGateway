@@ -1,6 +1,6 @@
 async function signIn(user, password) {
     try {
-        let uri = "/api/user/sign-in"
+        let uri = "/api/user/sign-in";
         let data = getFormData("sign-in-form");
         let response = await axios.post(uri, { user: data.user, password: data.password });
         handleSignInResponse(response);
