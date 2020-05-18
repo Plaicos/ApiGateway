@@ -98,7 +98,7 @@ var Client = class {
     async LoadComponentHtml(selector) {
         try {
             let param = JSON.stringify(selector);
-            let response = await axios.get(this.BaseUri + "/api/view/get-template?selector=" + param);
+            let response = await axios.get("/api/view/get-template?selector=" + param);
             return response.data.html;
         }
         catch (erro) {
