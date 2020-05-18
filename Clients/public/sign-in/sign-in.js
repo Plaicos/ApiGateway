@@ -17,7 +17,7 @@ function handleSignInResponse(response) {
             response = response.data
             let token = response.session_data.token
             document.cookie = `Authentication-Token=${token}`
-            window.location.replace(Client.BaseUri + "/dashboard");
+            window.location.replace("/dashboard");
         }
         else {
             console.log("Sign In Failed")
