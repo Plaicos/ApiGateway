@@ -1,4 +1,4 @@
-var Client = class {
+var TemplateClient = class {
     BaseSelector = {
         lib: "Dashboard",
         subject: "Components"
@@ -159,15 +159,7 @@ var Client = class {
         }
     }
 }
-
-var DashboardController = class {
-    SwitchToDefaultTab(){
-        Client.Session.currentTab = "default";
-    }
-    SwitchTab(tab) {
-        Client.Session.currentTab = tab;
-    }
-}
+Client = new Client();
 
 // just to show what a component should look like. This class has no use.
 class Component {
@@ -177,8 +169,6 @@ class Component {
 }
 
 window.onload = async () => {
-    Client = new Client();
     await Client.InitializeAsync();
-    DashboardController = new DashboardController();
     DashboardController.SwitchToDefaultTab();
 }
